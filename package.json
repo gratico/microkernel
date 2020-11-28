@@ -1,0 +1,28 @@
+{
+  "name": "@gratico/microkernel",
+  "version": "0.777.9",
+  "author": "Abhishiv Saxena<abhishiv@gmail.com>",
+  "description": "Microkenel definitions and specs",
+  "license": "UNLICENSED",
+  "keywords": [
+    "gratico-engineering"
+  ],
+  "url": "https://grati.co/@gratico/microkernel",
+  "accessConfig": {
+    "public": true
+  },
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "test": "echo 42",
+    "pub": "npm publish --access=public",
+    "build": "cp ../../tools/mono/Makefile ./Makefile && make build"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "devDependencies": {
+    "@oss-stealth/utils": "*",
+    "graphql": "14.0.2",
+    "npm-logical-tree": "^1.2.1"
+  }
+}
