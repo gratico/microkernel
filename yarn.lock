@@ -2,24 +2,24 @@
 # yarn lockfile v1
 
 
-"@gratico/atom@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/@gratico/atom/-/atom-0.1.1.tgz#10e56ccbbe1d0062f85e6b266248677f7d35297c"
-  integrity sha512-i9UHcmfv9jWLIBRONt7YJedPMLQDy7p+plYHwFmCZr9XaN0E27mArLkvHGDxnYGh9SRdLgpAeuNewvSg5QjcbA==
+"@gratico/atom@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/@gratico/atom/-/atom-0.1.2.tgz#30f37542bafb1727824bd0ba66e2969f2b8dd9f4"
+  integrity sha512-WUuS6nslvfCsA3/xYehATbfiX32ofT9ppanpCEwBxWBBoKwbRNt/TMnW8FLGT63gPbH94HOt9ToRtrjzYLnHag==
 
-"@gratico/checksum@*", "@gratico/checksum@^0.777.9":
+"@gratico/checksum@*":
   version "0.777.9"
   resolved "https://registry.npmjs.org/@gratico/checksum/-/checksum-0.777.9.tgz#1097b489fbb591652abcf55878b823e670653414"
   integrity sha512-l9i1hBeDfDkeu+OYxpmrZGZy/OdJVMmGmiupuEsplBYjsIYm4S7rgdbDAOouE80soummBXOcTopc7oj45ypMvQ==
   dependencies:
     pure-md5 "0.1.13"
 
-"@gratico/qbase@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.npmjs.org/@gratico/qbase/-/qbase-0.8.2.tgz#9a563112ae3cca9735273f0da4892f1e58401576"
-  integrity sha512-/da5GbHPGr0mbf1JiRi93woO8AzAvCpXo81AphLM+5BuTtjtkRG0MerKVlBfhCDMM75TTAMzUvKT0c5qk++b7g==
+"@gratico/qbase@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.npmjs.org/@gratico/qbase/-/qbase-0.8.3.tgz#72baabae6689a79d5ce29b6b999f0df474b434e0"
+  integrity sha512-W7Ituv743ykDro1c+DtMmXJDzOBkL8cEyup/yOOYc1sQHW+gq1HyqqNtKtvTJqrvrR2QuG0et/s8WzCqy3SzDg==
   dependencies:
-    "@gratico/atom" "^0.1.1"
+    "@gratico/atom" "^0.1.2"
     "@gratico/checksum" "*"
     shortid "^2.2.15"
     sift "^13.1.10"
@@ -37,6 +37,11 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-14.14.10.tgz#5958a82e41863cfc71f2307b3748e3491ba03785"
   integrity sha512-J32dgx2hw8vXrSbu4ZlVhn1Nm3GbeCFNw2FWL8S5QKucHGY0cyNwjdQdO+KMBZ4wpmC7KhLCiNsdk1RFRIYUQQ==
 
+"@types/pify@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/@types/pify/-/pify-3.0.2.tgz#1bc75dac43e31dba981c37e0a08edddc1b49cd39"
+  integrity sha512-a5AKF1/9pCU3HGMkesgY6LsBdXHUY3WU+I2qgpU0J+I8XuJA1aFr59eS84/HP0+dxsyBSNbt+4yGI2adUpHwSg==
+
 cross-fetch@^3.0.5:
   version "3.0.6"
   resolved "https://registry.npmjs.org/cross-fetch/-/cross-fetch-3.0.6.tgz#3a4040bc8941e653e0e9cf17f29ebcd177d3365c"
@@ -44,17 +49,10 @@ cross-fetch@^3.0.5:
   dependencies:
     node-fetch "2.6.1"
 
-graphql@14.0.2:
-  version "14.0.2"
-  resolved "https://registry.npmjs.org/graphql/-/graphql-14.0.2.tgz#7dded337a4c3fd2d075692323384034b357f5650"
-  integrity sha512-gUC4YYsaiSJT1h40krG3J+USGlwhzNTXSb4IOZljn9ag5Tj+RkoXrWp+Kh7WyE3t1NCfab5kzCuxBIvOMERMXw==
-  dependencies:
-    iterall "^1.2.2"
-
-iterall@^1.2.2:
-  version "1.3.0"
-  resolved "https://registry.npmjs.org/iterall/-/iterall-1.3.0.tgz#afcb08492e2915cbd8a0884eb93a8c94d0d72fea"
-  integrity sha512-QZ9qOMdF+QLHxy1QIpUHUU1D5pS2CG2P69LF6L6CPjPYA/XMOmKV3PZpawHoAjHNyB0swdVTRxdYT4tbBbxqwg==
+graphql@^15.4.0:
+  version "15.4.0"
+  resolved "https://registry.npmjs.org/graphql/-/graphql-15.4.0.tgz#e459dea1150da5a106486ba7276518b5295a4347"
+  integrity sha512-EB3zgGchcabbsU9cFe1j+yxdzKQKAbGUWRb13DsrsMN1yyfmmIq+2+L5MqVWcDCE4V89R5AyUOi7sMOGxdsYtA==
 
 nanoid@^2.1.0:
   version "2.1.11"
@@ -70,6 +68,11 @@ npm-logical-tree@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/npm-logical-tree/-/npm-logical-tree-1.2.1.tgz#44610141ca24664cad35d1e607176193fd8f5b88"
   integrity sha512-AJI/qxDB2PWI4LG1CYN579AY1vCiNyWfkiquCsJWqntRu/WwimVrC8yXeILBFHDwxfOejxewlmnvW9XXjMlYIg==
+
+pify@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/pify/-/pify-5.0.0.tgz#1f5eca3f5e87ebec28cc6d54a0e4aaf00acc127f"
+  integrity sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==
 
 pure-md5@0.1.13:
   version "0.1.13"
