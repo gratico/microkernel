@@ -32,6 +32,8 @@ doc:
 	cp -r src docs
 	ls -l docs/
 	env SRC_FILE=./docs/index.ts make doc-file
+	rm -rf ./Readme.md
+	cp ./docs/index.md ./Readme.md
 	./node_modules/.bin/typedoc --theme ./node_modules/@gratico/docs-site/src/themes/typedoc/default  --out ./docs/typedoc   --includeDeclarations --exclude "**/node_modules/**/*" --inputFiles ./src
 	cp -r ./_config.yml ./docs/_config.yml
 	echo 42 > .nojekyll
