@@ -1,11 +1,3 @@
-export * from "./bus";
-export * from "./fs";
-export * from "./pm";
-export * from "./runtime";
-export * from "./npm";
-export * from "./theme";
-export * from "./keyboard";
-
 import { IFileSystem } from "./fs";
 import {
   EventEmitter as EventEmitter2,
@@ -13,31 +5,22 @@ import {
 } from "@oss-stealth/utils/dist/co/emitter";
 import { ICSPChannel } from "@oss-stealth/utils/dist/co/buffers";
 import { IBusNode, IRouteServer, IRouteHandler } from "./bus";
-import { IStore } from "@gratico/cap";
-import { IDBStore } from "@gratico/qbase";
+import { IStore } from "./cap";
+import { IQBase } from "@gratico/qbase";
 
 // todo remove these unused
 import {
-  gratiHubRepository,
-  gratiHubJSON,
-  gratiHubExternalInstallation,
-  gratiHubRepositoryMirror,
-  gratiHubOauthToken,
-  gratiHubProjectClaim,
-  gratiHubWorkspace,
-  gratiHubProject,
-} from "./graphql/types";
+  IProject,
+  IBranch,
+  IProjectClaims,
+  IRepository,
+  IExternalInstallation,
+  IOauthToken,
+  IRepositoryMirror,
+} from "./business";
 
-export type IProject = gratiHubProject;
-export type IProjectClaims = gratiHubProjectClaim;
-export type IRepository = gratiHubRepository;
-export type IWorkspace = gratiHubWorkspace;
-export type IExternalInstallation = gratiHubExternalInstallation;
-export type IOauthToken = gratiHubOauthToken;
-export type IRepositoryMirror = gratiHubRepositoryMirror;
-export interface IKernelProjectConfig {}
 export interface IKernelConfig {
-  project: gratiHubProject;
+  project: IProject;
   projectClaims: IProjectClaims;
   projectRepositories: IRepository[];
   projectBuildpack: IRepository[];
@@ -57,11 +40,12 @@ export interface IKernel {
   config: IKernelConfig;
   loci: IKernelLoci;
   cache: Map<any, any>;
-  db: IDBStore;
+  db: IQBase;
   emitters: {
     notifications: IEventEmitter;
     logs: IEventEmitter;
     directory: IEventEmitter;
+    viewport: IEventEmitter;
     [key: string]: IEventEmitter;
   };
   bus: IBusNode;
@@ -99,7 +83,6 @@ export interface IKernelManifestMeta {
 }
 export interface IKernelManifestAdvertisment {
   capabilities: string[];
-  extensionMatchers?: Array<any[]>;
   config: {
     [key: string]: any;
   };

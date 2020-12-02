@@ -1,6 +1,6 @@
 {
   "name": "@gratico/microkernel",
-  "version": "0.777.9",
+  "version": "0.8.1",
   "author": "Abhishiv Saxena<abhishiv@gmail.com>",
   "description": "Microkenel definitions and specs",
   "license": "UNLICENSED",
@@ -11,18 +11,23 @@
   "accessConfig": {
     "public": true
   },
-  "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "module": "./dist/esm/index.mjs",
+  "main": "./dist/cjs/index.js",
+  "typings": "./dist/cjs/index.d.ts",
   "scripts": {
     "test": "echo 42",
-    "pub": "npm publish --access=public",
-    "build": "cp ../../tools/mono/Makefile ./Makefile && make build"
+    "build": "make"
   },
-  "dependencies": {},
+  "dependencies": {
+    "pify": "^5.0.0"
+  },
   "peerDependencies": {},
   "devDependencies": {
+    "@gratico/qbase": "^0.8.2",
     "@oss-stealth/utils": "*",
+    "@types/node": "^14.0.11",
     "graphql": "14.0.2",
-    "npm-logical-tree": "^1.2.1"
+    "npm-logical-tree": "^1.2.1",
+    "typescript": "^4.1.2"
   }
 }

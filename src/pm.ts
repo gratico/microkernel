@@ -1,4 +1,4 @@
-import { IFileSystem } from "@gratico/microkernel";
+import { IFileSystem } from "./fs";
 import { Fetch } from "./fetch";
 import { LogicalTree } from "npm-logical-tree";
 import { IRuntime } from "./runtime";
