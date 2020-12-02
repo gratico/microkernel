@@ -19,16 +19,23 @@
     "build": "make"
   },
   "dependencies": {
-    "pify": "^5.0.0"
+    "pify": "^5.0.0",
+    "@oss-stealth/utils": "^0.5.3"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react": "^17.0.0"
+  },
   "devDependencies": {
     "@gratico/qbase": "^0.8.3",
-    "@oss-stealth/utils": "*",
     "@types/node": "^14.0.11",
     "@types/pify": "^3.0.2",
     "graphql": "^15.4.0",
     "npm-logical-tree": "^1.2.1",
+    "@gratico/docs-site": "^0.1.2",
+    "@types/react": "^17.0.0",
+    "docco-next": "^0.9.3",
+    "prettier": "^2.2.1",
+    "typedoc": "^0.19.2",
     "typescript": "^4.1.2"
   }
 }
