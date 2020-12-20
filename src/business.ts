@@ -3,7 +3,6 @@ import {
   gratiHubJSON,
   gratiHubExternalInstallation,
   gratiHubRepositoryMirror,
-  gratiHubOauthToken,
   gratiHubProjectClaim,
   gratiHubWorkspace,
   gratiHubProject,
@@ -15,13 +14,30 @@ export type IBranch = gratiHubRepositoryBranch;
 export type IProjectClaims = gratiHubProjectClaim;
 export type IRepository = gratiHubRepository;
 export type IExternalInstallation = gratiHubExternalInstallation;
-export type IOauthToken = gratiHubOauthToken;
 export type IRepositoryMirror = gratiHubRepositoryMirror;
 
 export interface IMaster {
   id: string;
   createdAt: Date;
   viewports: IViewport[];
+}
+export interface INotficationPayloadSimpleItem {
+  label: string;
+  description: string;
+  value?: number;
+}
+
+export type INotficationPayloadItem = INotficationPayloadSimpleItem;
+export interface INotficationPayload {
+  items: INotficationPayloadItem[];
+}
+export interface INotification {
+  id: string;
+  threadId: string;
+  payload: INotficationPayload;
+  timeout?: number;
+  timestamp: string;
+  autoDismiss?: boolean;
 }
 export interface IProcessRecord {
   id: string;
@@ -53,7 +69,8 @@ export interface IWorkspace {
 }
 export interface ICheckout {
   id: string;
-  repoId: number;
+  repoName: string;
+  refName: string;
   ref: string;
   fsStateChecksum?: string;
 }
