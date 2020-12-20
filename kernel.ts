@@ -15,7 +15,6 @@ import {
   IProjectClaims,
   IRepository,
   IExternalInstallation,
-  IOauthToken,
   IRepositoryMirror,
 } from "./business";
 
@@ -26,7 +25,6 @@ export interface IKernelConfig {
   projectBuildpack: IRepository[];
   projectMirrors: IRepositoryMirror[];
   projectInstallations: IExternalInstallation[];
-  userTokens: IOauthToken[];
   token: string;
 }
 export interface IKernelLoci {
@@ -46,6 +44,7 @@ export interface IKernel {
     logs: IEventEmitter;
     directory: IEventEmitter;
     viewport: IEventEmitter;
+    keyboard: IEventEmitter;
     [key: string]: IEventEmitter;
   };
   bus: IBusNode;

@@ -353,6 +353,9 @@ footer {
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="../modules/__types_graphql_d_.html">&quot;@types/graphql.d&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="../modules/__types_npm_logical_tree_d_.html">&quot;@types/npm-<wbr>logical-<wbr>tree.d&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -386,6 +389,9 @@ footer {
 						<a href="../modules/_keyboard_.html">&quot;keyboard&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="../modules/_keymap_.html">&quot;keymap&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="../modules/_npm_.html">&quot;npm&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -412,6 +418,9 @@ footer {
 					<li class=" tsd-kind-module">
 						<a href="../modules/_theme_.html">&quot;theme&quot;</a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_themes_dark_.html">&quot;themes/dark&quot;</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -422,16 +431,19 @@ footer {
 						<a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html" class="tsd-kind-icon">Mutation<wbr>ToCreate<wbr>Repository<wbr>Mirror<wbr>Args</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#mirrorowner" class="tsd-kind-icon">mirror<wbr>Owner</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#mirrorrepo" class="tsd-kind-icon">mirror<wbr>Repo</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#projecttoken" class="tsd-kind-icon">project<wbr>Token</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#providername" class="tsd-kind-icon">provider<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#providerreponame" class="tsd-kind-icon">provider<wbr>Repo<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#providerusername" class="tsd-kind-icon">provider<wbr>Username</a>
+								<a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#providerrepoid" class="tsd-kind-icon">provider<wbr>Repo<wbr>Id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#repoid" class="tsd-kind-icon">repo<wbr>Id</a>
@@ -459,10 +471,11 @@ footer {
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#mirrorowner" class="tsd-kind-icon">mirror<wbr>Owner</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#mirrorrepo" class="tsd-kind-icon">mirror<wbr>Repo</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#projecttoken" class="tsd-kind-icon">project<wbr>Token</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#providername" class="tsd-kind-icon">provider<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#providerreponame" class="tsd-kind-icon">provider<wbr>Repo<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#providerusername" class="tsd-kind-icon">provider<wbr>Username</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#providerrepoid" class="tsd-kind-icon">provider<wbr>Repo<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_graphql_types_.mutationtocreaterepositorymirrorargs.html#repoid" class="tsd-kind-icon">repo<wbr>Id</a></li>
 							</ul>
 						</section>
@@ -472,12 +485,32 @@ footer {
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="mirrorowner" class="tsd-anchor"></a>
+					<h3>mirror<wbr>Owner</h3>
+					<div class="tsd-signature tsd-kind-icon">mirror<wbr>Owner<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/graphql/types.ts#L930">src/graphql/types.ts:930</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="mirrorrepo" class="tsd-anchor"></a>
+					<h3>mirror<wbr>Repo</h3>
+					<div class="tsd-signature tsd-kind-icon">mirror<wbr>Repo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/graphql/types.ts#L931">src/graphql/types.ts:931</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="projecttoken" class="tsd-anchor"></a>
 					<h3>project<wbr>Token</h3>
 					<div class="tsd-signature tsd-kind-icon">project<wbr>Token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f307576/src/graphql/types.ts#L978">src/graphql/types.ts:978</a></li>
+							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/graphql/types.ts#L926">src/graphql/types.ts:926</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -487,27 +520,17 @@ footer {
 					<div class="tsd-signature tsd-kind-icon">provider<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f307576/src/graphql/types.ts#L980">src/graphql/types.ts:980</a></li>
+							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/graphql/types.ts#L928">src/graphql/types.ts:928</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="providerreponame" class="tsd-anchor"></a>
-					<h3>provider<wbr>Repo<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">provider<wbr>Repo<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="providerrepoid" class="tsd-anchor"></a>
+					<h3>provider<wbr>Repo<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">provider<wbr>Repo<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f307576/src/graphql/types.ts#L982">src/graphql/types.ts:982</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="providerusername" class="tsd-anchor"></a>
-					<h3>provider<wbr>Username</h3>
-					<div class="tsd-signature tsd-kind-icon">provider<wbr>Username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f307576/src/graphql/types.ts#L981">src/graphql/types.ts:981</a></li>
+							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/graphql/types.ts#L929">src/graphql/types.ts:929</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -517,7 +540,7 @@ footer {
 					<div class="tsd-signature tsd-kind-icon">repo<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f307576/src/graphql/types.ts#L979">src/graphql/types.ts:979</a></li>
+							<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/graphql/types.ts#L927">src/graphql/types.ts:927</a></li>
 						</ul>
 					</aside>
 				</section>

@@ -24,17 +24,15 @@ export interface gratiHubQuery {
 export interface gratiHubViewer {
   id: string;
   user?: gratiHubLoggedInUser;
-  guid?: string;
-  userUserMeta: gratiHubJSON;
-  getRealtimeToken: string;
+  userSharedProjects: Array<gratiHubProject>;
+  userGuid: string;
   getUserProjects: Array<gratiHubProject>;
   getUser?: gratiHubUser;
-  getPublicKeys?: Array<gratiHubPublicKey | null>;
-  getProject?: gratiHubProject;
+  getProject: gratiHubProject;
+  userSubscription: gratiHubUserSubscription;
+  userPublicKeys?: Array<gratiHubPublicKey | null>;
   getProjectCollaborators: Array<gratiHubUser>;
   getRepositories: Array<gratiHubRepository>;
-  getRepository?: gratiHubRepository;
-  getRepositoryCollaborators: Array<gratiHubUser>;
 }
 
 export interface gratiHubLoggedInUser {
@@ -43,11 +41,6 @@ export interface gratiHubLoggedInUser {
   full_name: string;
   avatar_url: string;
 }
-
-/**
- * The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
- */
-export type gratiHubJSON = any;
 
 export interface gratiHubProject {
   id: number;
@@ -65,6 +58,16 @@ export interface gratiHubUser {
   full_name?: string;
   avatar_url?: string;
   is_admin?: boolean;
+}
+
+export interface gratiHubUserSubscription {
+  id: string;
+  subscriptionId?: string;
+  type?: string;
+  userId?: number;
+  userGuid?: string;
+  activeSubscription?: boolean;
+  hasProblems?: boolean;
 }
 
 export interface gratiHubPublicKey {
@@ -89,11 +92,17 @@ export interface gratiHubRepository {
   stars_count: number;
   watchers_count: number;
   website?: string;
-  branches: Array<gratiHubRepositoryBranch | null>;
+  branches: Array<gratiHubRepositoryBranch>;
 }
+
+/**
+ * The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+ */
+export type gratiHubJSON = any;
 
 export interface gratiHubRepositoryBranch {
   name: string;
+  ref?: string;
   commit?: gratiHubRepositoryCommit;
 }
 
@@ -115,91 +124,74 @@ export interface gratiHubRepositoryCommitter {
 export interface gratiHubKernel {
   id: string;
   getTheme?: gratiHubJSON;
-  userGuid: string;
   getProjectToken: string;
+  userGuid: string;
   getProjectClaims: gratiHubProjectClaim;
   getProject: gratiHubProject;
   getProjectConfig: gratiHubJSON;
-  getProjectWorkspaces: Array<gratiHubWorkspace>;
   getProjectRepositories: Array<gratiHubRepository>;
   getProjectBuildpack: Array<gratiHubRepository>;
   getWorkspace: gratiHubWorkspace;
-  getDocumentState: gratiHubDocumentState;
-  getRepositoryMirrors: Array<gratiHubRepositoryMirror>;
-  getExternalInstallations: Array<gratiHubExternalInstallation>;
-  getOauthTokens: Array<gratiHubOauthToken>;
+  getProjectMirrors: Array<gratiHubRepositoryMirror>;
+  getViewerOAuthProfile?: gratiHubJSON;
+  getViewerOAuthIntallations: Array<gratiHubExternalInstallation | null>;
+  getViewerOAuthIntallationRepositories: Array<gratiHubExternalRepository>;
+  getProjectSubscription: gratiHubUserSubscription;
+  getProjectWorkspaces: Array<gratiHubWorkspace>;
 }
 
 export interface gratiHubProjectClaim {
   userGuid: string;
   userId?: number;
   projectId: number;
-  role: string;
-  publicKey: string;
-  privateKey: string;
-  workspaceId?: string;
 }
 
 export interface gratiHubWorkspace {
   id: string;
   name?: string;
   projectId: number;
-  editorStateId: string;
+  uid: string;
   isRealtime?: boolean;
-}
-
-export interface gratiHubDocumentState {
-  state: gratiHubJSON;
 }
 
 export interface gratiHubRepositoryMirror {
   id: string;
   provider: string;
+  installationId: string;
+  repositoryId: string;
+  sshURL: string;
 }
 
 export interface gratiHubExternalInstallation {
-  id: string;
+  id: number;
   provider: string;
   name: string;
 }
 
-export interface gratiHubOauthToken {
-  id: string;
-  provider: string;
-  token: string;
+export interface gratiHubExternalRepository {
+  id: number;
+  name: string;
+  full_name: string;
 }
 
 export interface gratiHubMutation {
   logout: gratiHubViewer;
-  createAuthenticationSession: boolean;
-  verifyAuthenticationSession?: gratiHubViewer;
+  loginUser?: gratiHubViewer;
   registerUser?: gratiHubViewer;
-  updateProfile?: gratiHubLoggedInUser;
   createProject?: gratiHubProject;
-  createRepository?: gratiHubRepository;
-  updateRepository?: gratiHubRepository;
-  deleteRepository?: gratiHubRepository;
-  createPublicKey?: gratiHubPublicKey;
-  deletePublicKey?: gratiHubPublicKey;
+  createRepository?: gratiHubKernel;
+  deleteRepository?: gratiHubKernel;
   createRepositoryMirror?: gratiHubKernel;
-  updateProjectConfig?: gratiHubKernel;
-}
-
-export interface gratiHubAuthenticationSession {
-  id: string;
+  createPublicKey?: gratiHubPublicKey;
+  deletePublicKey: boolean;
+  updateProject?: gratiHubKernel;
+  updateRepository?: gratiHubKernel;
+  removeRepositoryMirror?: gratiHubKernel;
 }
 
 export enum gratiHubCacheControlScope {
   PUBLIC = 'PUBLIC',
   PRIVATE = 'PRIVATE'
-}
-
-export interface gratiHubOauthCredentia {
-  id: string;
-  provider: string;
-  token: string;
-  timestamp: string;
-  meta?: gratiHubJSON;
 }
 
 export interface gratiHubProjectTeam {
@@ -212,18 +204,6 @@ export interface gratiHubProjectTeam {
  * The `Upload` scalar type represents a file upload.
  */
 export type gratiHubUpload = any;
-
-export interface gratiHubWorkspaceState {
-  state: gratiHubJSON;
-}
-
-export interface gratiHubWorkspaceUser {
-  id: string;
-  userId: string;
-  name: string;
-  login?: string;
-  anonymous?: string;
-}
 
 /*********************************
  *                               *
@@ -239,28 +219,24 @@ export interface gratiHubResolver {
   Query?: gratiHubQueryTypeResolver;
   Viewer?: gratiHubViewerTypeResolver;
   LoggedInUser?: gratiHubLoggedInUserTypeResolver;
-  JSON?: GraphQLScalarType;
   Project?: gratiHubProjectTypeResolver;
   User?: gratiHubUserTypeResolver;
+  UserSubscription?: gratiHubUserSubscriptionTypeResolver;
   PublicKey?: gratiHubPublicKeyTypeResolver;
   Repository?: gratiHubRepositoryTypeResolver;
+  JSON?: GraphQLScalarType;
   RepositoryBranch?: gratiHubRepositoryBranchTypeResolver;
   RepositoryCommit?: gratiHubRepositoryCommitTypeResolver;
   RepositoryCommitter?: gratiHubRepositoryCommitterTypeResolver;
   Kernel?: gratiHubKernelTypeResolver;
   ProjectClaim?: gratiHubProjectClaimTypeResolver;
   Workspace?: gratiHubWorkspaceTypeResolver;
-  DocumentState?: gratiHubDocumentStateTypeResolver;
   RepositoryMirror?: gratiHubRepositoryMirrorTypeResolver;
   ExternalInstallation?: gratiHubExternalInstallationTypeResolver;
-  OauthToken?: gratiHubOauthTokenTypeResolver;
+  ExternalRepository?: gratiHubExternalRepositoryTypeResolver;
   Mutation?: gratiHubMutationTypeResolver;
-  AuthenticationSession?: gratiHubAuthenticationSessionTypeResolver;
-  OauthCredentia?: gratiHubOauthCredentiaTypeResolver;
   ProjectTeam?: gratiHubProjectTeamTypeResolver;
   Upload?: GraphQLScalarType;
-  WorkspaceState?: gratiHubWorkspaceStateTypeResolver;
-  WorkspaceUser?: gratiHubWorkspaceUserTypeResolver;
 }
 export interface gratiHubQueryTypeResolver<TParent = any> {
   viewer?: QueryToViewerResolver<TParent>;
@@ -278,17 +254,15 @@ export interface QueryToKernelResolver<TParent = any, TResult = any> {
 export interface gratiHubViewerTypeResolver<TParent = any> {
   id?: ViewerToIdResolver<TParent>;
   user?: ViewerToUserResolver<TParent>;
-  guid?: ViewerToGuidResolver<TParent>;
-  userUserMeta?: ViewerToUserUserMetaResolver<TParent>;
-  getRealtimeToken?: ViewerToGetRealtimeTokenResolver<TParent>;
+  userSharedProjects?: ViewerToUserSharedProjectsResolver<TParent>;
+  userGuid?: ViewerToUserGuidResolver<TParent>;
   getUserProjects?: ViewerToGetUserProjectsResolver<TParent>;
   getUser?: ViewerToGetUserResolver<TParent>;
-  getPublicKeys?: ViewerToGetPublicKeysResolver<TParent>;
   getProject?: ViewerToGetProjectResolver<TParent>;
+  userSubscription?: ViewerToUserSubscriptionResolver<TParent>;
+  userPublicKeys?: ViewerToUserPublicKeysResolver<TParent>;
   getProjectCollaborators?: ViewerToGetProjectCollaboratorsResolver<TParent>;
   getRepositories?: ViewerToGetRepositoriesResolver<TParent>;
-  getRepository?: ViewerToGetRepositoryResolver<TParent>;
-  getRepositoryCollaborators?: ViewerToGetRepositoryCollaboratorsResolver<TParent>;
 }
 
 export interface ViewerToIdResolver<TParent = any, TResult = any> {
@@ -299,22 +273,12 @@ export interface ViewerToUserResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface ViewerToGuidResolver<TParent = any, TResult = any> {
+export interface ViewerToUserSharedProjectsResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface ViewerToUserUserMetaArgs {
-  username?: string;
-}
-export interface ViewerToUserUserMetaResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: ViewerToUserUserMetaArgs, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface ViewerToGetRealtimeTokenArgs {
-  organizationName: string;
-}
-export interface ViewerToGetRealtimeTokenResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: ViewerToGetRealtimeTokenArgs, context: any, info: GraphQLResolveInfo): TResult;
+export interface ViewerToUserGuidResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface ViewerToGetUserProjectsArgs {
@@ -331,15 +295,19 @@ export interface ViewerToGetUserResolver<TParent = any, TResult = any> {
   (parent: TParent, args: ViewerToGetUserArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface ViewerToGetPublicKeysResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
 export interface ViewerToGetProjectArgs {
   username: string;
 }
 export interface ViewerToGetProjectResolver<TParent = any, TResult = any> {
   (parent: TParent, args: ViewerToGetProjectArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface ViewerToUserSubscriptionResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface ViewerToUserPublicKeysResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface ViewerToGetProjectCollaboratorsArgs {
@@ -354,22 +322,6 @@ export interface ViewerToGetRepositoriesArgs {
 }
 export interface ViewerToGetRepositoriesResolver<TParent = any, TResult = any> {
   (parent: TParent, args: ViewerToGetRepositoriesArgs, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface ViewerToGetRepositoryArgs {
-  username?: string;
-  reponame?: string;
-}
-export interface ViewerToGetRepositoryResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: ViewerToGetRepositoryArgs, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface ViewerToGetRepositoryCollaboratorsArgs {
-  username?: string;
-  reponame?: string;
-}
-export interface ViewerToGetRepositoryCollaboratorsResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: ViewerToGetRepositoryCollaboratorsArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface gratiHubLoggedInUserTypeResolver<TParent = any> {
@@ -458,6 +410,44 @@ export interface UserToAvatar_urlResolver<TParent = any, TResult = any> {
 }
 
 export interface UserToIs_adminResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface gratiHubUserSubscriptionTypeResolver<TParent = any> {
+  id?: UserSubscriptionToIdResolver<TParent>;
+  subscriptionId?: UserSubscriptionToSubscriptionIdResolver<TParent>;
+  type?: UserSubscriptionToTypeResolver<TParent>;
+  userId?: UserSubscriptionToUserIdResolver<TParent>;
+  userGuid?: UserSubscriptionToUserGuidResolver<TParent>;
+  activeSubscription?: UserSubscriptionToActiveSubscriptionResolver<TParent>;
+  hasProblems?: UserSubscriptionToHasProblemsResolver<TParent>;
+}
+
+export interface UserSubscriptionToIdResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface UserSubscriptionToSubscriptionIdResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface UserSubscriptionToTypeResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface UserSubscriptionToUserIdResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface UserSubscriptionToUserGuidResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface UserSubscriptionToActiveSubscriptionResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface UserSubscriptionToHasProblemsResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
@@ -564,10 +554,15 @@ export interface RepositoryToBranchesResolver<TParent = any, TResult = any> {
 
 export interface gratiHubRepositoryBranchTypeResolver<TParent = any> {
   name?: RepositoryBranchToNameResolver<TParent>;
+  ref?: RepositoryBranchToRefResolver<TParent>;
   commit?: RepositoryBranchToCommitResolver<TParent>;
 }
 
 export interface RepositoryBranchToNameResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface RepositoryBranchToRefResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
@@ -629,19 +624,20 @@ export interface RepositoryCommitterToUsernameResolver<TParent = any, TResult = 
 export interface gratiHubKernelTypeResolver<TParent = any> {
   id?: KernelToIdResolver<TParent>;
   getTheme?: KernelToGetThemeResolver<TParent>;
-  userGuid?: KernelToUserGuidResolver<TParent>;
   getProjectToken?: KernelToGetProjectTokenResolver<TParent>;
+  userGuid?: KernelToUserGuidResolver<TParent>;
   getProjectClaims?: KernelToGetProjectClaimsResolver<TParent>;
   getProject?: KernelToGetProjectResolver<TParent>;
   getProjectConfig?: KernelToGetProjectConfigResolver<TParent>;
-  getProjectWorkspaces?: KernelToGetProjectWorkspacesResolver<TParent>;
   getProjectRepositories?: KernelToGetProjectRepositoriesResolver<TParent>;
   getProjectBuildpack?: KernelToGetProjectBuildpackResolver<TParent>;
   getWorkspace?: KernelToGetWorkspaceResolver<TParent>;
-  getDocumentState?: KernelToGetDocumentStateResolver<TParent>;
-  getRepositoryMirrors?: KernelToGetRepositoryMirrorsResolver<TParent>;
-  getExternalInstallations?: KernelToGetExternalInstallationsResolver<TParent>;
-  getOauthTokens?: KernelToGetOauthTokensResolver<TParent>;
+  getProjectMirrors?: KernelToGetProjectMirrorsResolver<TParent>;
+  getViewerOAuthProfile?: KernelToGetViewerOAuthProfileResolver<TParent>;
+  getViewerOAuthIntallations?: KernelToGetViewerOAuthIntallationsResolver<TParent>;
+  getViewerOAuthIntallationRepositories?: KernelToGetViewerOAuthIntallationRepositoriesResolver<TParent>;
+  getProjectSubscription?: KernelToGetProjectSubscriptionResolver<TParent>;
+  getProjectWorkspaces?: KernelToGetProjectWorkspacesResolver<TParent>;
 }
 
 export interface KernelToIdResolver<TParent = any, TResult = any> {
@@ -655,16 +651,16 @@ export interface KernelToGetThemeResolver<TParent = any, TResult = any> {
   (parent: TParent, args: KernelToGetThemeArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface KernelToUserGuidResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
 export interface KernelToGetProjectTokenArgs {
   projectName: string;
   workspaceId?: string;
 }
 export interface KernelToGetProjectTokenResolver<TParent = any, TResult = any> {
   (parent: TParent, args: KernelToGetProjectTokenArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface KernelToUserGuidResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface KernelToGetProjectClaimsArgs {
@@ -686,13 +682,6 @@ export interface KernelToGetProjectConfigArgs {
 }
 export interface KernelToGetProjectConfigResolver<TParent = any, TResult = any> {
   (parent: TParent, args: KernelToGetProjectConfigArgs, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface KernelToGetProjectWorkspacesArgs {
-  projectToken: string;
-}
-export interface KernelToGetProjectWorkspacesResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: KernelToGetProjectWorkspacesArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface KernelToGetProjectRepositoriesArgs {
@@ -718,43 +707,53 @@ export interface KernelToGetWorkspaceResolver<TParent = any, TResult = any> {
   (parent: TParent, args: KernelToGetWorkspaceArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface KernelToGetDocumentStateArgs {
+export interface KernelToGetProjectMirrorsArgs {
   projectToken: string;
-  documentId: string;
 }
-export interface KernelToGetDocumentStateResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: KernelToGetDocumentStateArgs, context: any, info: GraphQLResolveInfo): TResult;
+export interface KernelToGetProjectMirrorsResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: KernelToGetProjectMirrorsArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface KernelToGetRepositoryMirrorsArgs {
+export interface KernelToGetViewerOAuthProfileArgs {
   projectToken: string;
 }
-export interface KernelToGetRepositoryMirrorsResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: KernelToGetRepositoryMirrorsArgs, context: any, info: GraphQLResolveInfo): TResult;
+export interface KernelToGetViewerOAuthProfileResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: KernelToGetViewerOAuthProfileArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface KernelToGetExternalInstallationsArgs {
+export interface KernelToGetViewerOAuthIntallationsArgs {
   projectToken: string;
 }
-export interface KernelToGetExternalInstallationsResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: KernelToGetExternalInstallationsArgs, context: any, info: GraphQLResolveInfo): TResult;
+export interface KernelToGetViewerOAuthIntallationsResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: KernelToGetViewerOAuthIntallationsArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface KernelToGetOauthTokensArgs {
+export interface KernelToGetViewerOAuthIntallationRepositoriesArgs {
+  projectToken: string;
+  installationId: number;
+}
+export interface KernelToGetViewerOAuthIntallationRepositoriesResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: KernelToGetViewerOAuthIntallationRepositoriesArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface KernelToGetProjectSubscriptionArgs {
   projectToken: string;
 }
-export interface KernelToGetOauthTokensResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: KernelToGetOauthTokensArgs, context: any, info: GraphQLResolveInfo): TResult;
+export interface KernelToGetProjectSubscriptionResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: KernelToGetProjectSubscriptionArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface KernelToGetProjectWorkspacesArgs {
+  projectToken: string;
+}
+export interface KernelToGetProjectWorkspacesResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: KernelToGetProjectWorkspacesArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface gratiHubProjectClaimTypeResolver<TParent = any> {
   userGuid?: ProjectClaimToUserGuidResolver<TParent>;
   userId?: ProjectClaimToUserIdResolver<TParent>;
   projectId?: ProjectClaimToProjectIdResolver<TParent>;
-  role?: ProjectClaimToRoleResolver<TParent>;
-  publicKey?: ProjectClaimToPublicKeyResolver<TParent>;
-  privateKey?: ProjectClaimToPrivateKeyResolver<TParent>;
-  workspaceId?: ProjectClaimToWorkspaceIdResolver<TParent>;
 }
 
 export interface ProjectClaimToUserGuidResolver<TParent = any, TResult = any> {
@@ -769,27 +768,11 @@ export interface ProjectClaimToProjectIdResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface ProjectClaimToRoleResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface ProjectClaimToPublicKeyResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface ProjectClaimToPrivateKeyResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface ProjectClaimToWorkspaceIdResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
 export interface gratiHubWorkspaceTypeResolver<TParent = any> {
   id?: WorkspaceToIdResolver<TParent>;
   name?: WorkspaceToNameResolver<TParent>;
   projectId?: WorkspaceToProjectIdResolver<TParent>;
-  editorStateId?: WorkspaceToEditorStateIdResolver<TParent>;
+  uid?: WorkspaceToUidResolver<TParent>;
   isRealtime?: WorkspaceToIsRealtimeResolver<TParent>;
 }
 
@@ -805,7 +788,7 @@ export interface WorkspaceToProjectIdResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface WorkspaceToEditorStateIdResolver<TParent = any, TResult = any> {
+export interface WorkspaceToUidResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
@@ -813,17 +796,12 @@ export interface WorkspaceToIsRealtimeResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface gratiHubDocumentStateTypeResolver<TParent = any> {
-  state?: DocumentStateToStateResolver<TParent>;
-}
-
-export interface DocumentStateToStateResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
 export interface gratiHubRepositoryMirrorTypeResolver<TParent = any> {
   id?: RepositoryMirrorToIdResolver<TParent>;
   provider?: RepositoryMirrorToProviderResolver<TParent>;
+  installationId?: RepositoryMirrorToInstallationIdResolver<TParent>;
+  repositoryId?: RepositoryMirrorToRepositoryIdResolver<TParent>;
+  sshURL?: RepositoryMirrorToSshURLResolver<TParent>;
 }
 
 export interface RepositoryMirrorToIdResolver<TParent = any, TResult = any> {
@@ -831,6 +809,18 @@ export interface RepositoryMirrorToIdResolver<TParent = any, TResult = any> {
 }
 
 export interface RepositoryMirrorToProviderResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface RepositoryMirrorToInstallationIdResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface RepositoryMirrorToRepositoryIdResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface RepositoryMirrorToSshURLResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
@@ -852,62 +842,54 @@ export interface ExternalInstallationToNameResolver<TParent = any, TResult = any
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface gratiHubOauthTokenTypeResolver<TParent = any> {
-  id?: OauthTokenToIdResolver<TParent>;
-  provider?: OauthTokenToProviderResolver<TParent>;
-  token?: OauthTokenToTokenResolver<TParent>;
+export interface gratiHubExternalRepositoryTypeResolver<TParent = any> {
+  id?: ExternalRepositoryToIdResolver<TParent>;
+  name?: ExternalRepositoryToNameResolver<TParent>;
+  full_name?: ExternalRepositoryToFull_nameResolver<TParent>;
 }
 
-export interface OauthTokenToIdResolver<TParent = any, TResult = any> {
+export interface ExternalRepositoryToIdResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface OauthTokenToProviderResolver<TParent = any, TResult = any> {
+export interface ExternalRepositoryToNameResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface OauthTokenToTokenResolver<TParent = any, TResult = any> {
+export interface ExternalRepositoryToFull_nameResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface gratiHubMutationTypeResolver<TParent = any> {
   logout?: MutationToLogoutResolver<TParent>;
-  createAuthenticationSession?: MutationToCreateAuthenticationSessionResolver<TParent>;
-  verifyAuthenticationSession?: MutationToVerifyAuthenticationSessionResolver<TParent>;
+  loginUser?: MutationToLoginUserResolver<TParent>;
   registerUser?: MutationToRegisterUserResolver<TParent>;
-  updateProfile?: MutationToUpdateProfileResolver<TParent>;
   createProject?: MutationToCreateProjectResolver<TParent>;
   createRepository?: MutationToCreateRepositoryResolver<TParent>;
-  updateRepository?: MutationToUpdateRepositoryResolver<TParent>;
   deleteRepository?: MutationToDeleteRepositoryResolver<TParent>;
+  createRepositoryMirror?: MutationToCreateRepositoryMirrorResolver<TParent>;
   createPublicKey?: MutationToCreatePublicKeyResolver<TParent>;
   deletePublicKey?: MutationToDeletePublicKeyResolver<TParent>;
-  createRepositoryMirror?: MutationToCreateRepositoryMirrorResolver<TParent>;
-  updateProjectConfig?: MutationToUpdateProjectConfigResolver<TParent>;
+  updateProject?: MutationToUpdateProjectResolver<TParent>;
+  updateRepository?: MutationToUpdateRepositoryResolver<TParent>;
+  removeRepositoryMirror?: MutationToRemoveRepositoryMirrorResolver<TParent>;
 }
 
 export interface MutationToLogoutResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface MutationToCreateAuthenticationSessionArgs {
+export interface MutationToLoginUserArgs {
   email: string;
+  password: string;
 }
-export interface MutationToCreateAuthenticationSessionResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: MutationToCreateAuthenticationSessionArgs, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface MutationToVerifyAuthenticationSessionArgs {
-  email: string;
-  code: string;
-}
-export interface MutationToVerifyAuthenticationSessionResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: MutationToVerifyAuthenticationSessionArgs, context: any, info: GraphQLResolveInfo): TResult;
+export interface MutationToLoginUserResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: MutationToLoginUserArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface MutationToRegisterUserArgs {
   email: string;
-  code: string;
+  password: string;
   name: string;
   username?: string;
 }
@@ -915,48 +897,41 @@ export interface MutationToRegisterUserResolver<TParent = any, TResult = any> {
   (parent: TParent, args: MutationToRegisterUserArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface MutationToUpdateProfileArgs {
-  name: string;
-  username: string;
-  website: string;
-  description: string;
-  channels?: Array<string>;
-}
-export interface MutationToUpdateProfileResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: MutationToUpdateProfileArgs, context: any, info: GraphQLResolveInfo): TResult;
-}
-
 export interface MutationToCreateProjectArgs {
   name: string;
-  template: string;
+  buildpack: string;
 }
 export interface MutationToCreateProjectResolver<TParent = any, TResult = any> {
   (parent: TParent, args: MutationToCreateProjectArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface MutationToCreateRepositoryArgs {
+  projectToken: string;
   name: string;
   isPublic: boolean;
-  template: string;
 }
 export interface MutationToCreateRepositoryResolver<TParent = any, TResult = any> {
   (parent: TParent, args: MutationToCreateRepositoryArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface MutationToUpdateRepositoryArgs {
-  name: string;
-  isPublic: boolean;
-}
-export interface MutationToUpdateRepositoryResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: MutationToUpdateRepositoryArgs, context: any, info: GraphQLResolveInfo): TResult;
-}
-
 export interface MutationToDeleteRepositoryArgs {
-  name: string;
-  isPublic: boolean;
+  projectToken: string;
+  repoId: number;
 }
 export interface MutationToDeleteRepositoryResolver<TParent = any, TResult = any> {
   (parent: TParent, args: MutationToDeleteRepositoryArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface MutationToCreateRepositoryMirrorArgs {
+  projectToken: string;
+  repoId: number;
+  providerName: string;
+  providerRepoId: number;
+  mirrorOwner: string;
+  mirrorRepo: string;
+}
+export interface MutationToCreateRepositoryMirrorResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: MutationToCreateRepositoryMirrorArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface MutationToCreatePublicKeyArgs {
@@ -974,59 +949,29 @@ export interface MutationToDeletePublicKeyResolver<TParent = any, TResult = any>
   (parent: TParent, args: MutationToDeletePublicKeyArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface MutationToCreateRepositoryMirrorArgs {
-  projectToken: string;
-  repoId: number;
-  providerName: string;
-  providerUsername: string;
-  providerRepoName: string;
-}
-export interface MutationToCreateRepositoryMirrorResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: MutationToCreateRepositoryMirrorArgs, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface MutationToUpdateProjectConfigArgs {
+export interface MutationToUpdateProjectArgs {
   projectToken: string;
   config: string;
 }
-export interface MutationToUpdateProjectConfigResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: MutationToUpdateProjectConfigArgs, context: any, info: GraphQLResolveInfo): TResult;
+export interface MutationToUpdateProjectResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: MutationToUpdateProjectArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface gratiHubAuthenticationSessionTypeResolver<TParent = any> {
-  id?: AuthenticationSessionToIdResolver<TParent>;
+export interface MutationToUpdateRepositoryArgs {
+  projectToken: string;
+  repoId: number;
+  isPublic: boolean;
+}
+export interface MutationToUpdateRepositoryResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: MutationToUpdateRepositoryArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface AuthenticationSessionToIdResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+export interface MutationToRemoveRepositoryMirrorArgs {
+  projectToken: string;
+  mirrorId: string;
 }
-
-export interface gratiHubOauthCredentiaTypeResolver<TParent = any> {
-  id?: OauthCredentiaToIdResolver<TParent>;
-  provider?: OauthCredentiaToProviderResolver<TParent>;
-  token?: OauthCredentiaToTokenResolver<TParent>;
-  timestamp?: OauthCredentiaToTimestampResolver<TParent>;
-  meta?: OauthCredentiaToMetaResolver<TParent>;
-}
-
-export interface OauthCredentiaToIdResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface OauthCredentiaToProviderResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface OauthCredentiaToTokenResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface OauthCredentiaToTimestampResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface OauthCredentiaToMetaResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+export interface MutationToRemoveRepositoryMirrorResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: MutationToRemoveRepositoryMirrorArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface gratiHubProjectTeamTypeResolver<TParent = any> {
@@ -1044,41 +989,5 @@ export interface ProjectTeamToNameResolver<TParent = any, TResult = any> {
 }
 
 export interface ProjectTeamToMembersResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface gratiHubWorkspaceStateTypeResolver<TParent = any> {
-  state?: WorkspaceStateToStateResolver<TParent>;
-}
-
-export interface WorkspaceStateToStateResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface gratiHubWorkspaceUserTypeResolver<TParent = any> {
-  id?: WorkspaceUserToIdResolver<TParent>;
-  userId?: WorkspaceUserToUserIdResolver<TParent>;
-  name?: WorkspaceUserToNameResolver<TParent>;
-  login?: WorkspaceUserToLoginResolver<TParent>;
-  anonymous?: WorkspaceUserToAnonymousResolver<TParent>;
-}
-
-export interface WorkspaceUserToIdResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WorkspaceUserToUserIdResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WorkspaceUserToNameResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WorkspaceUserToLoginResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface WorkspaceUserToAnonymousResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }

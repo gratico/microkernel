@@ -350,6 +350,9 @@ footer {
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="__types_graphql_d_.html">&quot;@types/graphql.d&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="__types_npm_logical_tree_d_.html">&quot;@types/npm-<wbr>logical-<wbr>tree.d&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -383,6 +386,9 @@ footer {
 						<a href="_keyboard_.html">&quot;keyboard&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="_keymap_.html">&quot;keymap&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="_npm_.html">&quot;npm&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -409,10 +415,16 @@ footer {
 					<li class=" tsd-kind-module">
 						<a href="_theme_.html">&quot;theme&quot;</a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="_themes_dark_.html">&quot;themes/dark&quot;</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_sdk_fs_helpers_.html#fromcheckoutid" class="tsd-kind-icon">from<wbr>Checkout<wbr>Id</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_sdk_fs_helpers_.html#getcheckoutspath" class="tsd-kind-icon">get<wbr>Checkouts<wbr>Path</a>
 					</li>
@@ -421,6 +433,9 @@ footer {
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_sdk_fs_helpers_.html#mkdirp" class="tsd-kind-icon">mkdirP</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_sdk_fs_helpers_.html#tocheckoutid" class="tsd-kind-icon">to<wbr>Checkout<wbr>Id</a>
 					</li>
 				</ul>
 			</nav>
@@ -433,9 +448,11 @@ footer {
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_sdk_fs_helpers_.html#fromcheckoutid" class="tsd-kind-icon">from<wbr>Checkout<wbr>Id</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_sdk_fs_helpers_.html#getcheckoutspath" class="tsd-kind-icon">get<wbr>Checkouts<wbr>Path</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_sdk_fs_helpers_.html#getgitdirpath" class="tsd-kind-icon">get<wbr>Git<wbr>Dir<wbr>Path</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_sdk_fs_helpers_.html#mkdirp" class="tsd-kind-icon">mkdirP</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_sdk_fs_helpers_.html#tocheckoutid" class="tsd-kind-icon">to<wbr>Checkout<wbr>Id</a></li>
 							</ul>
 						</section>
 					</div>
@@ -443,6 +460,32 @@ footer {
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="fromcheckoutid" class="tsd-anchor"></a>
+					<h3>from<wbr>Checkout<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Checkout<wbr>Id<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, sep<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/sdk/fs_helpers.ts#L5">src/sdk/fs_helpers.ts:5</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>input: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> sep: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;@&quot;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="getcheckoutspath" class="tsd-anchor"></a>
 					<h3>get<wbr>Checkouts<wbr>Path</h3>
@@ -453,7 +496,7 @@ footer {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f307576/src/sdk/fs_helpers.ts#L10">src/sdk/fs_helpers.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/sdk/fs_helpers.ts#L18">src/sdk/fs_helpers.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -479,7 +522,7 @@ footer {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f307576/src/sdk/fs_helpers.ts#L19">src/sdk/fs_helpers.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/sdk/fs_helpers.ts#L27">src/sdk/fs_helpers.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -505,7 +548,7 @@ footer {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f307576/src/sdk/fs_helpers.ts#L4">src/sdk/fs_helpers.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/sdk/fs_helpers.ts#L12">src/sdk/fs_helpers.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -518,6 +561,35 @@ footer {
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="tocheckoutid" class="tsd-anchor"></a>
+					<h3>to<wbr>Checkout<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Checkout<wbr>Id<span class="tsd-signature-symbol">(</span>repoName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, refName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, sep<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/gratico/microkernel/blob/f50fc51/src/sdk/fs_helpers.ts#L8">src/sdk/fs_helpers.ts:8</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>repoName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>refName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> sep: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;@&quot;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
