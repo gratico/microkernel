@@ -7,7 +7,7 @@
   resolved "https://registry.npmjs.org/@gratico/atom/-/atom-0.1.2.tgz#30f37542bafb1727824bd0ba66e2969f2b8dd9f4"
   integrity sha512-WUuS6nslvfCsA3/xYehATbfiX32ofT9ppanpCEwBxWBBoKwbRNt/TMnW8FLGT63gPbH94HOt9ToRtrjzYLnHag==
 
-"@gratico/checksum@*":
+"@gratico/checksum@*", "@gratico/checksum@^0.777.9":
   version "0.777.9"
   resolved "https://registry.npmjs.org/@gratico/checksum/-/checksum-0.777.9.tgz#1097b489fbb591652abcf55878b823e670653414"
   integrity sha512-l9i1hBeDfDkeu+OYxpmrZGZy/OdJVMmGmiupuEsplBYjsIYm4S7rgdbDAOouE80soummBXOcTopc7oj45ypMvQ==

@@ -1,8 +1,7 @@
-import { IKernel } from "../kernel";
-import { IStore } from "../cap";
-import {} from "../business";
-import { Buffer } from "buffer";
-
+import { IKernel } from '../kernel'
+import { IStore } from '../cap'
+import {} from '../business'
+import { checksum } from '@gratico/checksum'
 export function getFileBufferId(
   workspaceIdentifier: string,
   repo: string,
@@ -11,30 +10,27 @@ export function getFileBufferId(
   applicationId: string,
   applicationArgs: any[] = []
 ) {
-  return Buffer.from(
-    JSON.stringify({
-      workspaceIdentifier,
-      repo,
-      ref,
-      filePath,
-      applicationId,
-      applicationArgs,
-    })
-  ).toString("base64");
+  return checksum({
+    workspaceIdentifier,
+    repo,
+    ref,
+    filePath,
+    applicationId,
+    applicationArgs
+  })
 }
 
 export async function justTryAsync(fn: Promise<any>) {
   try {
-    await fn;
-  } catch (e) {}
+    await fn
+  } catch (e) {
+    //console.error(e)
+  }
 }
 
 export async function listFileBuffers(kernel: IKernel, workspaceId: string) {}
 
-export async function getSharedStore(
-  kernel: IKernel,
-  bufferId: string
-): Promise<IStore> {
-  const existingStore = kernel.sharedStores.get(bufferId);
-  return existingStore as IStore;
+export async function getSharedStore(kernel: IKernel, bufferId: string): Promise<IStore> {
+  const existingStore = kernel.sharedStores.get(bufferId)
+  return existingStore as IStore
 }
