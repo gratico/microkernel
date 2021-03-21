@@ -1,6 +1,6 @@
 {
   "name": "@gratico/microkernel",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "author": "Abhishiv Saxena<abhishiv@gmail.com>",
   "description": "Microkenel definitions and specs",
   "license": "UNLICENSED",
@@ -22,11 +22,10 @@
     "build": "make"
   },
   "dependencies": {
-    "@gratico/checksum": "^0.8.1",
+    "pure-md5": "0.1.13",
     "pify": "^5.0.0"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
   },
   "devDependencies": {
     "@gratico/docs-site": "^0.1.2",

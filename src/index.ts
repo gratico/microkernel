@@ -11,15 +11,14 @@
 //     import {IKernel, IKernelExtension} from "@gratico/microkernel"
 //
 
-export * from "./bus";
-export * from "./fs";
-export * from "./pm";
-export * from "./runtime";
-export * from "./npm";
-export * from "./theme";
+export * from './bus'
+export * from './fs'
+export * from './pm'
+export * from './runtime'
+export * from './npm'
+export * from './theme'
 
-export * from "./cap";
-export * from "./sdk";
-export * from "./kernel";
-export * from "./business";
-export * from "./keymap";
+export * from './cap'
+export * from './kernel'
+export * from './business'
+export * from './keymap'
